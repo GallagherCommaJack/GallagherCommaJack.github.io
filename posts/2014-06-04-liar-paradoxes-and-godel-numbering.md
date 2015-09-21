@@ -1,0 +1,48 @@
+---
+title: Liar Paradoxes and Godel Numbering: An Introduction to Incompleteness
+---
+
+The previous post on recursion had an ulterior motive: laying the groundwork for an explanation of Gödel's Incompleteness Theorems.&nbsp; It took me a long while to fully grok the underlying logic, but through no fault of the theorems themselves.&nbsp; Rather, I've noticed a dearth of <i>good online explanations</i>.&nbsp; The Wikipedia article is obtuse to say the least, <i>Gödel Escher Bach</i> and <i>Gödel's Proof</i> cost money, and neither of them is web-based anyway.&nbsp; So let's fix that, shall we?<br />
+Just a short prewarning: the different parts of this post will feel somewhat disconnected at first, but it'll all come together by the end.<br />
+<br />
+<span style="font-size: large;">The Liar Paradox</span><br />
+Ah, the Liar Paradox - we've all encountered it in one form or another, but the one most useful to us is this:<br />
+<br />
+&gt; This sentence is a lie<br />
+<br />
+Or, if you like recursive acronym's:<br />
+<br />
+&gt; INIAL's name is a lie<br />
+<br />
+Which expands to<br />
+<br />
+&gt; "INIAL's name is a lie" is a lie<br />
+<br />
+On and on to infinity.&nbsp; The interesting thing about this sentence is that, while it doesn't make sense to call it true, it doesn't really mean anything to call it false either.&nbsp; It is instead stuck in a strange oscillating limbo of contradiction where it's not clear the statement has any meaning at all.&nbsp; In a word, the statement is <i>inconsistent</i>, as is any system that can prove it.&nbsp; This notion isn't yet all that useful, but what we'll find by the end of this article is that it's actually quite portable. <br />
+<br />
+<br />
+<span style="font-size: large;">Gödel Numbering</span><br />
+Let's first take a short detour though.&nbsp; At some level, we know we can represent any string of characters with a string of bits - after all, <a href="http://en.wikipedia.org/wiki/Character_encoding">this is exactly what computers do to store text</a>.&nbsp; And, similarly, it's <a href="http://en.wikipedia.org/wiki/Binary_number">pretty trivial</a> to interpret a string of bits as a number.&nbsp; Now, in and of itself this doesn't seem that revolutionary, but the reducibility of strings to numbers actually leads to an incredibly important result in mathematics - namely, that you can reason about arithmetic from within itself.&nbsp; After all, for any string \(\sigma\), "\(\sigma\) is a valid theorem in <a href="http://en.wikipedia.org/wiki/Peano_axioms">Peano Arithmetic</a>" becomes a valid predicate, as does "\(\sigma\) is a true statement of number theory".&nbsp; Suddenly, we've found a way to get arithmetic to swallow its own tail and can begin to use it for metamathematical reasoning.<br />
+Indeed, all axiomatic systems can be embedded in some manner similar to this - all it takes is some sufficiently clever ways of doing typographical manipulations of numbers.<br />
+<br />
+<span style="font-size: large;">A Short Interlude: MIU Gödelized</span><br />
+You may or may not remember my post on the <a href="http://blog.gallabytes.com/2014/03/miu-haskellized.html">MIU System</a>, but in case you don't, here are the axioms again (note: I use lowercase characters for placeholders, and upper case for MIU characters)<br />
+<br />
+- If we can construct x, we can construct xU<br />
+- If we can construct Mx, we can construct Mxx<br />
+- If we can construct xIIIy, we can construct xUy<br />
+- If we can construct xUUy, we can construct xy<br />
+- We can construct MI<br />
+<br />
+A very primitive way to encode this is to make a number, where every M is a 3, every I is a 1, and every U is a 0.&nbsp; If we do this, we can rephrase the axioms in terms of numerical operations:<br />
+<br />
+- If we can construct x, we can construct \( x \cdot 10 \)<br />
+- If we can construct \( 3 \cdot 10^n + x \), we can construct \( 3 \cdot 10^{2n} + x \cdot 10^n + x \)<br />
+- If we can construct \( x \cdot 10^{n+3} + 111 \cdot 10^n + y\), we can construct \(x \cdot 10^{n+1} + y \)<br />
+- If we can construct \( x \cdot 10^{n+2} + y\), we can construct \(x \cdot 10^n + y \)<br />
+- We can construct \( 31 \)<br />
+<br />
+Of course, this method of encoding is relatively primitive and hard to reason about, but it's more than sufficient as a proof-of-concept.&nbsp; And, importantly, it demonstrates one of the most important facts of positional notation - typographical operations become as simple as separating the positions out and doing funny operations on the individual pieces.&nbsp; But, as much as I'd love to delve into a long rant about number and string encoding, we have a topic to get back to.<br />
+<br />
+<span style="font-size: large;">Bringing it all together</span><br />
+So, where are we going with all this nonsense?&nbsp; Well, we've already seen how simple it is to embed statements like "\(\sigma\) is a valid theorem in Peano Arithmetic", so why not use the weaker notion "\(\sigma\) is provable in Peano Arithmetic"?&nbsp; (Or, more formally, "\(\exists\lambda\) such that \(\lambda\) is a valid proof of \(\sigma\)").&nbsp; Or, similarly, "\(\sigma\) is <i>not</i> provable in Peano Arithmetic".&nbsp; Now, this notion itself isn't that useful, but we can construct a true statement \(\epsilon\) that reads "\(\epsilon\) is not provable in Peano Arithmetic" - suddenly, the statement is <i>talking directly about its own provability</i>.&nbsp; And, in a similar vein to the liar paradox, it can't be proven without also showing inconsistency.&nbsp; So, either we can prove both \(\sigma\) and \(\neg\sigma\) or we can't prove \(\sigma\) (and therefore \(\sigma\) is true).&nbsp; And, if we can't prove \(\sigma\), then we've just constructed a statement that is both <i>true</i> and <i>can't be proven</i>.&nbsp; This creates a dichotomy: either a formal system is inconsistent, or it's incomplete.&nbsp; And so ends <a href="http://plato.stanford.edu/entries/hilbert-program/">Hilbert's Program</a>.

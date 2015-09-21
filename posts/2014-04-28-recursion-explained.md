@@ -1,0 +1,87 @@
+---
+title: Recursion Explained
+---
+
+This is the first in a series of posts with a specific, targeted audience, which means there's going to be a relatively wide variation in level-of-explanation.  Some of the posts are going to very clearly be me-writing-for-someone-who-already-knows-lots-of-relevant-information, and some (like today's) will be me-writing-for-someone-who-wouldn't-normally-read-this-blog.
+Anyway, today's topic is what recursion is and why we should care.  If you already think recursion is important, this post'll be pretty surface-y and review-heavy.  So, let's get started, shall we?<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://a.gifb.in/reverse-1235067460_yo-dawg02.gif" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://a.gifb.in/reverse-1235067460_yo-dawg02.gif" /></a></div>
+<br />
+<div style="text-align: center;">
+<span style="font-size: x-small;">Recursive-Xzibit thinks Recursive-Xzibit thinks Recursive-Xzbit thinks ... that recursion is fun</span></div>
+<div style="text-align: left;">
+<br /></div>
+<div style="text-align: left;">
+<span style="font-size: x-small;"><span style="font-size: small;">So yeah, recursion.&nbsp; The basic idea is something that acts on itself, or something with multiple different levels.&nbsp; And oh, the places you can go with self reference!</span></span><br />
+<span style="font-size: x-small;"><span style="font-size: small;">The most recent/significant pop-cultural example I can think of is the movie <i>Inception</i>, where dreams could occur within dreams within dreams, and what happened in one level would bleed down into all the levels below it (e.g. when gravity stopped in the hotel because the truck they were dreaming in was falling off a bridge).&nbsp;&nbsp;</span></span><br />
+<span style="font-size: x-small;"><span style="font-size: small;">Recursion comes in a few different classes, and I've yet to hear any good terms to differentiate them, so I'm going to make some up:</span></span></div>
+<br />
+<ul>
+<li>Unidirectional recursion</li>
+<ul>
+<li>Feedback only goes in <i>only one direction</i></li>
+<li><i>&nbsp;</i>Example 1: The Fibonacci Sequence (each element is the sum of the previous two elements, the first few are \(0, 1, 1, 2, 3, 5, 8, 13, 21...\)) - the later parts of the list are completely unimportant in figuring out the first few</li>
+<li>Example 2: Sorting a list (using quicksort) - one simple and efficient way to sort a list is a monotonic recursion - you pick the first number off the list, split the rest of it in two by putting all the numbers smaller than the first one on one side and bigger on the other, then sort each of those sublists </li>
+</ul>
+<br />
+<li>Bidirectional recursion</li>
+<ul>
+<a href="http://i.stack.imgur.com/Nr5uq.png" imageanchor="1" style="clear: right; float: right; margin-bottom: 1em; margin-left: 1em;"><img border="0" src="http://i.stack.imgur.com/Nr5uq.png" height="200" width="197" /></a>
+<li>Feedback can go in either direction</li>
+<li>Example:<i> Inception</i> - the environment you're dreaming in influences the dream, but the events within the dreams have lasting influence in the outside world (e.g. planting an idea in someone's head, taking useful information, etc)</li>
+<li>Example 2: INT - this graph is sorta strange.&nbsp; It's constructed entirely out of smaller versions of itself - any single point contains the whole graph.&nbsp; The lower levels are <i>exactly the same</i> as the higher ones.&nbsp; Cool, right?</li>
+&nbsp;</ul>
+<br />
+<li>Mutual recursion</li>
+<ul>
+<li>Two things that are defined, each one in terms of the other</li>
+<li>This one's generally a bit more complicated than the other two</li>
+<li>One set of good examples can be found in <a href="http://en.wikipedia.org/wiki/Hofstadter_sequence">Hofstadter Sequences</a> - specifically, the Figure-Figure sequence</li>
+<li>It's pretty neatly defined in terms of itself and its complement (the set of all numbers <i>not</i> in the sequence)</li>
+<li>The first number of the sequence (\(R(0)\), if you will) is \(1\)</li>
+<li>The first number not in the sequence (Let's call it \(S(0)\)) is \(2\)</li>
+<li>The rest of the sequence is defined \(R(n) = R(n-1) + S(n-1)\)</li>
+<li>So, for example, \(R(1) = R(0) + S(0) = 3\), and \(R(2) = R(1) + S(1) = (R(0) + S(0)) + S(1) = (2+1) + S(1) = 3 + S(1) = 3 + 4 = 7\)</li>
+<li>Let's write out another one just for kicks:&nbsp;</li>
+<li>&nbsp;\(R(3) = R(2) + S(2) =&nbsp; (R(1) + S(1)) + S(2)\)</li>
+<li>\(= ((R(0)+S(0))+S(1))+S(2) = (3+4)+5 = 12\)</li>
+</ul>
+<br />
+&nbsp;So, why should we care exactly?&nbsp; Why does this fancy "recursion" thing even matter?&nbsp; Well, it's by far the most elegant (and sometimes the only) way to define all those things up there, but let's say you didn't care about any of those.&nbsp; Why recursion?<br />
+<br />
+Well, given that the target audience here is into music theory, let's start with the immediately relevant example: fugues.&nbsp; Fugues are recursive - you start from a relatively well defined structure, then modify it according to various rules and weave the modifications together, and, if you know what you're doing, beautiful music comes out.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<object class="BLOGGER-youtube-video" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" data-thumbnail-src="https://ytimg.googleusercontent.com/vi/ddbxFi3-UO4/0.jpg" height="266" width="320"><param name="movie" value="https://youtube.googleapis.com/v/ddbxFi3-UO4&source=uds" /><param name="bgcolor" value="#FFFFFF" /><param name="allowFullScreen" value="true" /><embed width="320" height="266"  src="https://youtube.googleapis.com/v/ddbxFi3-UO4&source=uds" type="application/x-shockwave-flash" allowfullscreen="true"></embed></object></div>
+<br />
+<br />
+Convinced you care yet?&nbsp; No?&nbsp; What was that?&nbsp; "More examples"?&nbsp; Great.<br />
+<br />
+Well, recursion is useful in understanding language.&nbsp; I'd go into it, but Guy Steele did a presentation on this a while ago, and it's one of my favourite talks on the internet, so I'll link to that instead.<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<object class="BLOGGER-youtube-video" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" data-thumbnail-src="https://ytimg.googleusercontent.com/vi/_ahvzDzKdB0/0.jpg" height="266" width="320"><param name="movie" value="https://youtube.googleapis.com/v/_ahvzDzKdB0&source=uds" /><param name="bgcolor" value="#FFFFFF" /><param name="allowFullScreen" value="true" /><embed width="320" height="266"  src="https://youtube.googleapis.com/v/_ahvzDzKdB0&source=uds" type="application/x-shockwave-flash" allowfullscreen="true"></embed></object></div>
+<br />
+That brings me to my next point pretty nicely actually - recursion is <i>extremely important</i> in programming. <br />
+I'll summarize a bit, but recursion-in-programming really deserves its own post <br />
+A relatively common idiom is to define a base case and a way to reduce anything else to said base case.&nbsp; We saw a few examples of that earlier, with the Fibonacci and Figure-Figure sequences - we defined \(F(0)\), \(S(0)\), and \(R(0)\), then gave rules for computing the rest of the sequences in terms of the first element.<br />
+But, to take a more programming-y example, let's say you've got some operation (we'll call it f) and you want to apply it to each element of a list.  How would you go about that?<br />
+Well, you'd probably start by applying the operation to the first result of the list, then start again with the rest of the list, until you've f'd every element.<br />
+<br />
+So, we've seen that recursion gives us pretty ways to define seemingly messy things, but the discussion is still incomplete.&nbsp; Why?<br />
+Simple.<br />
+I haven't pulled out the pretty colors.<br />
+A discussion of recursion always has to end with fractals, so we'll start with a joke, then follow up with a pretty picture: <br />
+<br />
+I recently saw someone post a question on Quora, "What's the prettiest image ever found by zooming in on the Mandelbrot set?" - The best answer was, of course, "The Mandelbrot set".<br />
+The Mandelbrot set is defined by doing some funky things with complex numbers, and the trick is that it ends up containing infinitely many smaller versions of itself - Just about anywhere along the boundary, if you zoom in enough, you'll find a (often very slightly deformed) copy of the whole set.<br />
+<br />
+So, without further ado, pretty colors<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://upload.wikimedia.org/wikipedia/commons/a/a4/Mandelbrot_sequence_new.gif" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://upload.wikimedia.org/wikipedia/commons/a/a4/Mandelbrot_sequence_new.gif" /></a></div>
+<br />
+<ul><ul>
+</ul>
+</ul>
+</ul>

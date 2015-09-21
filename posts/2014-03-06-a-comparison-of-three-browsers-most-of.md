@@ -1,0 +1,59 @@
+---
+title: A Comparison Of The Three Browsers Most Of You Use
+---
+ 
+So by now I've gotten a few hundred page views, and I've noticed something:<br />
+10% of you are using IE<br />
+Which has me realizing that a post talking about the advantages of different browsers was probably worth writing.&nbsp; So here's a comparison of the three browsers at least 10% of you use:<br />
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://2.bp.blogspot.com/-LFqSDjHsyqM/Uxi_CkDbyuI/AAAAAAAAABI/6ovfMhpwRzM/s1600/firefox_logo-wordmark-horiz_RGB.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://2.bp.blogspot.com/-LFqSDjHsyqM/Uxi_CkDbyuI/AAAAAAAAABI/6ovfMhpwRzM/s1600/firefox_logo-wordmark-horiz_RGB.png" height="136" width="320" /></a></div>
+<br />
+Mozilla's Firefox, built from the ashes of Netscape, could not-all-that-inaccurately be called the Emacs of web browsers.&nbsp; It's free, open source, and it's been called an OS.&nbsp; Of course, for me that's not the killer feature; that role is filled by the amazing tab handling.&nbsp; It's not that it does anything exceptionally well (except for tab groups - those are awesome) but that everyone else does something horribly wrong.<br />
+That being said, if you don't suffer from <a href="http://i.imgur.com/iNY6ch1.png?1">tab overload</a>, it will be slower than Chrome, so you're probably better off moving on.&nbsp; That being said, there are <a href="https://addons.mozilla.org/en-US/firefox/addon/classic-compact/">a</a> <a href="https://addons.mozilla.org/en-US/firefox/addon/firemacs/">few</a> <a href="http://noscript.net/">extensions</a> for Firefox that no one's done a good Chrome port of yet<br />
+<br />
+Pros:<br />
+<ul>
+<li>Easily the best <a href="https://support.mozilla.org/en-US/kb/tab-groups-organize-tabs">support</a> for <a href="http://i.imgur.com/iNY6ch1.png?1">tab overload</a> through tab groups and on demand tab loading</li>
+<li><a href="https://addons.mozilla.org/en-US/firefox/">Extremely customizable&nbsp;</a></li>
+<li><a href="https://www.mozilla.org/en-US/about/manifesto/">Probably the most ethical</a> of the mainstream browsers</li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_of_web_browsers#HTML5_support">Good html5 support</a></li>
+<li><a href="https://support.mozilla.org/en-US/kb/search-bar-easily-choose-your-search-engine">Easiest search engine switching</a></li>
+<li>Memory light in short usage</li>
+</ul>
+Cons:<br />
+<ul>
+<li>Bad at clearing memory during continued use</li>
+<li>Only third best html5 support</li>
+<li>Slow startup </li>
+</ul>
+<div class="separator" style="clear: both; text-align: center;">
+<br /></div>
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://3.bp.blogspot.com/-EAtWxD8XSjc/Uxi-v1eEvCI/AAAAAAAAABA/-OORyNRdnV8/s1600/Chrome+Logo.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://3.bp.blogspot.com/-EAtWxD8XSjc/Uxi-v1eEvCI/AAAAAAAAABA/-OORyNRdnV8/s1600/Chrome+Logo.png" height="82" width="320" />&nbsp;</a> </div>
+<div class="separator" style="clear: both; text-align: left;">
+Google's browser, you've probably already heard of it.&nbsp; 44% of you, actually, use Chrome.&nbsp; It doesn't really need much introduction, so there won't be.&nbsp; If you're using it, I'd recommend taking a look at <a href="http://blog.gallabytes.com/2014/01/10-chrome-extensions-to-change-way-you.html">this post</a>.&nbsp; I'd recommend using it unless you're super concerned about ethical software, privacy, or you simply have too many tabs.</div>
+<div class="separator" style="clear: both; text-align: left;">
+<br /></div>
+<div class="separator" style="clear: both; text-align: left;">
+Pros:</div>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_of_web_browsers#HTML5_support">Best html5 support</a></li>
+<li><a href="https://support.google.com/chrome/answer/165139?hl=en">Integration with everything Google</a></li>
+<li><a href="https://chrome.google.com/webstore/category/extensions">Extremely customizable</a></li>
+<li>Extremely quick startup</li>
+<li>Overall faster rendering than most browsers</li>
+<li>Increased stability by making each tab its own process </li>
+</ul>
+Cons:<br />
+<ul>
+<li>Proprietary</li>
+<li>Weak tab handling without extensions</li>
+<li>Overall heavier memory usage by making each tab (and each extension!) its own process&nbsp;</li>
+</ul>
+<br />
+<div class="separator" style="clear: both; text-align: center;">
+<a href="http://1.bp.blogspot.com/-FiA5BtcBZbI/UxjD2M2P8oI/AAAAAAAAABU/N7WGgS9kdfw/s1600/ie.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;"><img border="0" src="http://1.bp.blogspot.com/-FiA5BtcBZbI/UxjD2M2P8oI/AAAAAAAAABU/N7WGgS9kdfw/s1600/ie.png" height="142" width="320" /></a></div>
+Don't use it.&nbsp; Please switch.&nbsp; It's slow, has<a href="https://en.wikipedia.org/wiki/Comparison_of_web_browsers#HTML5_support"> bad html5 support</a>, and relatively insecure.&nbsp; While recent versions have definitely improved this situation, exploits are being created for it faster than any other browser just because most of the least tech savvy users are using it.&nbsp; It's also proprietary, completely closed source (Chrome at least has Chromium behind it), and it's not customizable.&nbsp; So yeah.&nbsp; Switch, save yourself the headache.&nbsp; If you can't bring yourself to switch, at least update to IE 11.&nbsp; There are still people out there using IE6.&nbsp; That one's been completely broken since it was first made in 2001.&nbsp; Don't be one of those people.<br />
+<ul>
+</ul>

@@ -1,0 +1,3 @@
+$for(redirects)$
+Redirect 301 $old$ $siteRoot$$new$
+$endfor$
