@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gallabytes - Unified Interpreters For Dependent Languages</title>
+        <link rel="stylesheet" type="text/css" href="../../css/default.css" />
+        <link rel="icon" type="image/ico" href="../../favicon.ico">
+        <script type="text/javascript" src="path-to-MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../../">Gallabytes</a>
+            </div>
+            <div id="navigation">
+                <a href="../../">Home</a>
+                <a href="../../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <a href="../../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Unified Interpreters For Dependent Languages</h1>
+
+            <div class="info">
+    Posted on October 30, 2015
+    
+</div>
+
+<p>I’ve spent the past couple months playing around with <a href="https://github.com/GallagherCommaJack/tt-provability">all sorts of ways</a> to represent type theory in type theory. Doing so has led me down a lot of rabbit holes, and in this post I hope to explain some of the more fun ones.</p>
+<h1 id="induction-recursion">Induction Recursion</h1>
+<p>Induction recursion has become one of the most powerful tools in my type theoretic utility belt. One classic example of induction recursion is defining <a href="http://ncatlab.org/homotopytypetheory/show/universe">a universe of types</a> within another universe inductively (which we can then eliminate over). The construction is simple enough - we just define an inductive family of codes at the same time as the decoding function.</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda"><span class="kw">data</span> U <span class="ot">:</span> <span class="dt">Set</span>
+⟦<span class="ot">_</span>⟧ᵤ <span class="ot">:</span> U <span class="ot">→</span> <span class="dt">Set</span>
+
+<span class="kw">data</span> U <span class="kw">where</span>
+  π  σ    <span class="ot">:</span> <span class="ot">(</span>A <span class="ot">:</span> U<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>⟦ A ⟧ᵤ <span class="ot">→</span> U<span class="ot">)</span> <span class="ot">→</span> U <span class="co">-- Π, Σ</span>
+  n₀ n₁ n₂ <span class="ot">:</span> U <span class="co">-- ⊥,⊤</span>
+
+⟦ π a b ⟧ᵤ <span class="ot">=</span> <span class="ot">(</span>a↓ <span class="ot">:</span> ⟦ a ⟧ᵤ<span class="ot">)</span> <span class="ot">→</span> ⟦ b a↓ ⟧ᵤ
+⟦ σ a b ⟧ᵤ <span class="ot">=</span> Σ ⟦ a ⟧ᵤ <span class="ot">(λ</span> a↓ <span class="ot">→</span> ⟦ b a↓ ⟧ᵤ<span class="ot">)</span>
+⟦ n₀ ⟧ᵤ <span class="ot">=</span> ⊥
+⟦ n₁ ⟧ᵤ <span class="ot">=</span> ⊤
+⟦ n₂ ⟧ᵤ <span class="ot">=</span> Bool</code></pre></div>
+<p>We can actually go a little farther, and define next universes for every universe in type theory.</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda"><span class="kw">data</span> NextU <span class="ot">(</span>U' <span class="ot">:</span> <span class="dt">Set</span><span class="ot">)</span> <span class="ot">(</span>⟦<span class="ot">_</span>⟧ᵤ' <span class="ot">:</span> U' <span class="ot">→</span> <span class="dt">Set</span><span class="ot">)</span> <span class="ot">:</span> <span class="dt">Set</span>
+⟦<span class="ot">_</span>⟧ₙ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>U' ⟦<span class="ot">_</span>⟧ᵤ'<span class="ot">}</span> <span class="ot">→</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ' <span class="ot">→</span> <span class="dt">Set</span>
+
+<span class="kw">data</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ' <span class="kw">where</span>
+  uu <span class="ot">:</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ'
+  up <span class="ot">:</span> U' <span class="ot">→</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ'
+  πu σu <span class="ot">:</span> <span class="ot">(</span>A <span class="ot">:</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ'<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>⟦ A ⟧ₙ <span class="ot">→</span> NextU U' ⟦<span class="ot">_</span>⟧ᵤ'<span class="ot">)</span> <span class="ot">→</span> nextU U' ⟦<span class="ot">_</span>⟧ᵤ' <span class="co">-- Π, Σ</span>
+
+⟦<span class="ot">_</span>⟧ₙ <span class="ot">{</span>U'<span class="ot">}</span> uu <span class="ot">=</span> U'
+⟦<span class="ot">_</span>⟧ₙ <span class="ot">{</span>U'<span class="ot">}</span> <span class="ot">{</span>⟦<span class="ot">_</span>⟧ᵤ'<span class="ot">}</span> <span class="ot">(</span>up u<span class="ot">)</span> <span class="ot">=</span> ⟦ u ⟧ᵤ'
+⟦ πu a b ⟧ₙ <span class="ot">=</span> <span class="ot">(</span>a↓ <span class="ot">:</span> ⟦ a ⟧ₙ<span class="ot">)</span> <span class="ot">→</span> ⟦ b a↓ ⟧ₙ
+⟦ σu a b ⟧ₙ <span class="ot">=</span> Σ ⟦ a ⟧ₙ <span class="ot">(λ</span> a↓ <span class="ot">→</span> ⟦ b a↓ ⟧ₙ<span class="ot">)</span></code></pre></div>
+<p>You can even define Mahlo universes in <code>Set</code> this way, but I haven’t actually found much use for that.</p>
+<h1 id="representing-languages">Representing languages</h1>
+<p>Using induction induction, it’s fairly easy to define a dependently typed language. We’ll use a typed variant on DeBrujin indices to represent variable binding.</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda"><span class="kw">data</span> Con <span class="ot">:</span> <span class="dt">Set</span>
+<span class="kw">data</span> Ty <span class="ot">:</span> Con <span class="ot">→</span> <span class="dt">Set</span>
+<span class="kw">data</span> <span class="ot">_</span>∋<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> Γ <span class="ot">→</span> Ty Γ <span class="ot">→</span> <span class="dt">Set</span>
+<span class="kw">data</span> <span class="ot">_</span>⊢<span class="ot">_</span> <span class="ot">(</span>Γ <span class="ot">:</span> Con<span class="ot">)</span> <span class="ot">:</span> Ty Γ <span class="ot">→</span> <span class="dt">Set</span>
+
+<span class="kw">data</span> Con <span class="kw">where</span>
+  ε <span class="ot">:</span> Con
+  <span class="ot">_</span>,<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> Γ <span class="ot">→</span> Ty Γ <span class="ot">→</span> Con
+
+<span class="kw">data</span> Ty <span class="kw">where</span>
+  π <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">(</span>A <span class="ot">:</span> Ty Γ<span class="ot">)</span> <span class="ot">→</span> Ty <span class="ot">(</span>Γ , A<span class="ot">)</span> <span class="ot">→</span> Ty Γ
+  ‘⊤’ ‘⊥’ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">→</span> Ty Γ
+  W <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> Ty Γ <span class="ot">→</span> Ty <span class="ot">(</span>Γ , A<span class="ot">)</span> <span class="co">-- weakening</span>
+  <span class="ot">_</span>⍟<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">(</span>B <span class="ot">:</span> Ty <span class="ot">(</span>Γ , A<span class="ot">))</span> <span class="ot">→</span> Γ ⊢ A <span class="ot">→</span> Ty Γ <span class="co">-- application at type level</span>
+
+<span class="kw">data</span> <span class="ot">_</span>∋<span class="ot">_</span> <span class="kw">where</span>
+  top <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> <span class="ot">(</span>Γ , A<span class="ot">)</span> ∋ W A
+  pop <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A B<span class="ot">}</span> <span class="ot">→</span> Γ ∋ A <span class="ot">→</span> <span class="ot">(</span>Γ , B<span class="ot">)</span> ∋ W A
+
+<span class="kw">data</span> <span class="ot">_</span>⊢<span class="ot">_</span> <span class="kw">where</span>
+  var <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> Γ ∋ A <span class="ot">→</span> Γ ⊢ A
+  lam <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> A <span class="ot">(</span>B <span class="ot">:</span> Ty <span class="ot">(</span>Γ , A<span class="ot">))</span> <span class="ot">→</span> <span class="ot">(</span>Γ , A<span class="ot">)</span> ⊢ B <span class="ot">→</span> Γ ⊢ π A B
+  <span class="ot">_</span>⊛<span class="ot">_</span> <span class="ot">:</span> A B<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ π A B <span class="ot">→</span> <span class="ot">(</span>a <span class="ot">:</span> Γ ⊢ A<span class="ot">)</span> <span class="ot">→</span> Γ ⊢ B ⍟ a
+  tt <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ ‘⊤’ <span class="co">-- ‘⊤’ is terminal</span>
+  exf <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ ‘⊥’ <span class="ot">→</span> Γ ⊢ A <span class="co">-- ‘⊥’ is initial</span></code></pre></div>
+<p>We could then define an interpreter for this langauge in three parts - one function to interpret contexts, one for types, and one for terms.</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda">Con↓ <span class="ot">:</span> Con <span class="ot">→</span> <span class="dt">Set</span> <span class="co">-- Denotation of a context should be a list of typed holes to fill in an expression - think of this as the map we'll look up variables in</span>
+Ty↓ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">→</span> Ty Γ <span class="ot">→</span> Con↓ Γ <span class="ot">→</span> <span class="dt">Set</span> <span class="co">-- Denotation of a type should be, well, a type, but should only be accessible if we can fill in all the holes</span>
+Tm↓ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ T<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ T <span class="ot">→</span> <span class="ot">(</span>Γ↓ <span class="ot">:</span> Con↓ Γ<span class="ot">)</span> <span class="ot">→</span> Ty↓ T Γ↓ <span class="co">-- Denotation of a term should be an inhabitant of its type, but again can only be created if we can give the variable lookup</span>
+
+Con↓ ε <span class="ot">=</span> ⊤ <span class="co">-- empty context is trivial</span>
+Con↓ <span class="ot">(</span>Γ , T<span class="ot">)</span> <span class="ot">=</span> Σ[ Γ↓ ∈ Con↓ Γ ] Ty↓ T Γ↓
+
+Ty↓ <span class="ot">(</span>π A B<span class="ot">)</span> Γ↓ <span class="ot">=</span> <span class="ot">(</span>a↓ <span class="ot">:</span> Ty↓ A Γ↓<span class="ot">)</span> <span class="ot">→</span> Ty↓ B <span class="ot">(</span>Γ↓ , A<span class="ot">)</span>
+Ty↓ ‘⊤’ Γ↓ <span class="ot">=</span> ⊤
+Ty↓ ‘⊥’ Γ↓ <span class="ot">=</span> ⊥
+Ty↓ <span class="ot">(</span>W X<span class="ot">)</span> <span class="ot">(</span>Γ↓ , T<span class="ot">)</span> <span class="ot">=</span> Ty↓ X Γ↓
+Ty↓ <span class="ot">(</span>B ⍟ a<span class="ot">)</span> Γ↓ <span class="ot">=</span> Ty↓ B <span class="ot">(</span>Γ↓ , Tm↓ a Γ↓<span class="ot">)</span>
+
+Tm↓ <span class="ot">(</span>lam A b<span class="ot">)</span> Γ↓ <span class="ot">=</span> <span class="ot">λ</span> <span class="ot">(</span>a <span class="ot">:</span> Ty↓ A Γ↓<span class="ot">)</span> <span class="ot">→</span> Tm↓ b <span class="ot">(</span>Γ↓ , a<span class="ot">)</span>
+Tm↓ <span class="ot">(</span>f ⊛ x<span class="ot">)</span> Γ↓ <span class="ot">=</span> Tm↓ f Γ↓ <span class="ot">(</span>Tm↓ x Γ↓<span class="ot">)</span>
+Tm↓ tt <span class="ot">=</span> tt
+Tm↓ <span class="ot">(</span>exf contra<span class="ot">)</span> Γ↓ <span class="ot">=</span> ⊥-rec <span class="ot">(</span>Tm↓ contra Γ↓<span class="ot">)</span>
+Tm↓ <span class="ot">(</span>var v<span class="ot">)</span> Γ↓ <span class="ot">=</span> var↓ v Γ↓ <span class="co">-- variable lookup will be defined as an auxiliary function</span>
+  <span class="kw">where</span> var↓ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ T<span class="ot">}</span> <span class="ot">→</span> Γ ∋ T <span class="ot">→</span> <span class="ot">(</span>Γ↓ <span class="ot">:</span> Con↓ Γ<span class="ot">)</span> <span class="ot">→</span> Ty↓ T Γ↓
+        var↓ top <span class="ot">(</span>Γ↓ , a<span class="ot">)</span> <span class="ot">=</span> a
+        var↓ <span class="ot">(</span>pop v<span class="ot">)</span> <span class="ot">(</span>Γ↓ , b<span class="ot">)</span> <span class="ot">=</span> var↓ v Γ↓</code></pre></div>
+<p>This language is far from ideal for lots of reasons, but it serves to illustrate the basic concept. We can define a well typed syntax for dependent type theory fairly easily using induction induction, and the interpreter is a natural outgrowth of the language structure.</p>
+<p>But I’ve been playing around lately with languages that have access to their own interpreter, and three different interpretation functions across three different type families sounds like an awful lot of stuff. Luckily, like every other time I have a problem, Conor McBride’s figured out a trick using induction recursion that gets me at least part of the way there.</p>
+<p>First, the language representation:</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda"><span class="kw">data</span> Label <span class="ot">:</span> <span class="dt">Set</span> <span class="kw">where</span>
+  con ty tm <span class="ot">:</span> Label
+
+I <span class="ot">:</span> Label <span class="ot">→</span> <span class="dt">Set</span>
+<span class="kw">data</span> D <span class="ot">:</span> <span class="ot">(</span>ℓ <span class="ot">:</span> Label<span class="ot">)</span> <span class="ot">→</span> I ℓ <span class="ot">→</span> <span class="dt">Set</span>
+
+I con <span class="ot">=</span> ⊤
+I ty <span class="ot">=</span> D con <span class="ot">_</span>
+I tm <span class="ot">=</span> Σ[ Γ ∈ D con <span class="ot">_</span> ] D ty Γ
+
+Con <span class="ot">:</span> <span class="dt">Set</span>
+Con <span class="ot">=</span> D con <span class="ot">_</span>
+Ty <span class="ot">:</span> Con <span class="ot">→</span> <span class="dt">Set</span>
+Ty <span class="ot">=</span> D ty
+<span class="ot">_</span>⊢<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> Γ <span class="ot">→</span> Ty Γ <span class="ot">→</span> <span class="dt">Set</span>
+Γ ⊢ T <span class="ot">=</span> D tm <span class="ot">(</span>Γ , T<span class="ot">)</span>
+
+<span class="kw">data</span> D <span class="kw">where</span>
+  <span class="co">-- Contexts</span>
+  ε <span class="ot">:</span> Con <span class="co">-- D con _</span>
+  <span class="ot">_</span>,<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> Γ <span class="ot">→</span> Ty Γ <span class="ot">→</span> Con <span class="co">-- (Γ : D con _) → D ty Γ → D con _</span>
+  <span class="co">-- Types</span>
+  π <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">(</span>A <span class="ot">:</span> Ty Γ<span class="ot">)</span> <span class="ot">→</span> Ty <span class="ot">(</span>Γ , A<span class="ot">)</span> <span class="ot">→</span> Ty Γ
+  ‘⊤’ ‘⊥’ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">→</span> Ty Γ
+  W <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> Ty Γ <span class="ot">→</span> Ty <span class="ot">(</span>Γ , A<span class="ot">)</span> <span class="co">-- weakening</span>
+  <span class="ot">_</span>⍟<span class="ot">_</span> <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">(</span>B <span class="ot">:</span> Ty <span class="ot">(</span>Γ , A<span class="ot">))</span> <span class="ot">→</span> Γ ⊢ A <span class="ot">→</span> Ty Γ <span class="co">-- application at type level</span>
+  <span class="co">-- Terms</span>
+  top <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> <span class="ot">(</span>Γ , A<span class="ot">)</span> ⊢ W A
+  pop <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A B<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ A <span class="ot">→</span> <span class="ot">(</span>Γ , B<span class="ot">)</span> ⊢ W A
+  lam <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> A <span class="ot">(</span>B <span class="ot">:</span> Ty <span class="ot">(</span>Γ , A<span class="ot">))</span> <span class="ot">→</span> <span class="ot">(</span>Γ , A<span class="ot">)</span> ⊢ B <span class="ot">→</span> Γ ⊢ π A B
+  <span class="ot">_</span>⊛<span class="ot">_</span> <span class="ot">:</span> A B<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ π A B <span class="ot">→</span> <span class="ot">(</span>a <span class="ot">:</span> Γ ⊢ A<span class="ot">)</span> <span class="ot">→</span> Γ ⊢ B ⍟ a
+  tt <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ ‘⊤’ <span class="co">-- ‘⊤’ is terminal</span>
+  exf <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ A<span class="ot">}</span> <span class="ot">→</span> Γ ⊢ ‘⊥’ <span class="ot">→</span> Γ ⊢ A <span class="co">-- ‘⊥’ is initial</span></code></pre></div>
+<p>The interpreter itself will look an awful lot like the one we defined above, but with an added auxiliary function to specify the output type.</p>
+<div class="sourceCode"><pre class="sourceCode agda"><code class="sourceCode agda">U₁ <span class="ot">:</span> <span class="dt">Set</span>
+U₁ <span class="ot">=</span> NextU U ⟦<span class="ot">_</span>⟧ᵤ
+
+⟦<span class="ot">_</span>⟧₁ <span class="ot">:</span> U₁ <span class="ot">→</span> <span class="dt">Set</span>
+⟦<span class="ot">_</span>⟧₁ <span class="ot">=</span> ⟦<span class="ot">_</span>⟧ₙ
+
+I↓ <span class="ot">:</span> <span class="ot">∀</span> ℓ <span class="ot">→</span> I ℓ <span class="ot">→</span> U₁
+⟦<span class="ot">_</span>⟧ <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>ℓ i<span class="ot">}</span> <span class="ot">→</span> D ℓ i <span class="ot">→</span> ⟦ I↓ ℓ i ⟧₁
+
+I↓ con <span class="ot">_</span> <span class="ot">=</span> uu
+I↓ ty Γ <span class="ot">=</span> πu <span class="ot">(</span>up ⟦ Γ ⟧<span class="ot">)</span> <span class="ot">(λ</span> Γ↓ <span class="ot">→</span> uu<span class="ot">)</span>
+I↓ tm <span class="ot">(</span>Γ , T<span class="ot">)</span> <span class="ot">=</span> up <span class="ot">(</span>π ⟦ Γ ⟧ ⟦ T ⟧<span class="ot">)</span>
+
+⟦ ε ⟧ <span class="ot">=</span> ⊤
+⟦ Γ , T ⟧ <span class="ot">=</span> Σ ⟦ Γ ⟧ ⟦ T ⟧
+⟦ <span class="ot">...</span> ⟧ <span class="ot">=</span> <span class="ot">...</span> <span class="co">-- the rest of the function proceeds exactly as before</span></code></pre></div>
+<p>So, to review, using induction recursion we managed to specify an entire language, including contexts, types, and terms, as one giant inductive-recursive family, and write an interpreter for all three at once. I managed to use this alongside the trick for encoding very dependent types in Agda to write a language that parametrizes over its own interpreters, but didn’t actually find much use for it. Right now I’m looking at porting this trick to the Outrageous Coincidences representation to see if I can get around some of the issues I had that way, but I’m not particularly optimistic. My main enemy right now is the positivity restriction, which keeps me from doing quite as much with quotation as I’d like, as well as the standard issues about well typed dependent syntaxes.</p>
+<p>Next post will either be another exploratory piece like this one or (if I manage to finish it) the post about introductions to type theory I promised last time.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
