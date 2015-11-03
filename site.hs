@@ -10,7 +10,8 @@ dashSlashSlashDelete :: (Show a, Show b, Show c) => a -> b -> c -> Routes
 dashSlashSlashDelete a b c = let sa = show a
                                  sb = if length (show b) < 2 then '0':show b else show b
                                  sc = if length (show c) < 2 then '0':show c else show c
-                             in gsubRoute (fold $ intersperse "-" [sa, sb, sc, ""]) (const $ fold $ intersperse "/" [sa, sb, ""])  -- gsubRoute apparently succeeds even when it should fail
+                             in gsubRoute (fold $ intersperse "-" [sa, sb, sc, ""])
+                                          (const $ fold $ intersperse "/" [sa, sb, ""])  -- gsubRoute apparently succeeds even when it should fail
                                 `composeRoutes` matchRoute (fromGlob "*/*/*") idRoute -- this oughta fix that
 
 
