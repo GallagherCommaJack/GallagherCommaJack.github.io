@@ -1,6 +1,12 @@
 * Who am I?
 Jack Gallagher - mathematician, type theorist, and programmer - not always in that order.
 You can find more (if somewhat outdated) details in [[http://gallabytes.com/2015/09/types-in-high-school-reflection.html][this post]].
+* Contact Info
+The best way to reach me is by [[mailto:jack@gallabytes.com][email]].
+You can also find me on [[https://github.com/GallagherCommaJack][Github]], and of course on this blog.
+* What I'm up to these days
+I'm currently a research contractor at the [[https://intelligence.org/][Machine Intelligence Research Institute]], where I'm working on building tools for doing reflection in different type theories, with the eventual goal of being able to formalize all of MIRI's work. 
+Sometimes this means object-level formalization work (as in the implementation of Botworld in HOL, and my formalizations of dependently typed syntax), and sometimes it means developing more general tools for automatic formalization.
 * Projects
 ** Things I wrote (mostly) on my own
 - [[https://github.com/GallagherCommaJack/types-in-types][Some metatheory of Martin-Löf dependent type theory in Coq]] (WIP)
@@ -13,9 +19,4 @@ You can find more (if somewhat outdated) details in [[http://gallabytes.com/2015
 - [[https://github.com/JasonGross/lob-paper][A paper on dependently typed Löb's Theorem]]
 - [[https://github.com/HOL-Theorem-Prover/HOL/commit/3d4f44c9c46ed67a003c69a7957bf570b24d3a07][The HOL Theorem Prover]]
 - [[https://github.com/GallagherCommaJack/lean/tree/quote][The Lean Theorem Prover]] (WIP, contributions not yet added to main repo)
-* Where am I / where have I worked?
-I'm currently a research contractor at the [[https://intelligence.org/][Machine Intelligence Research Institute]], where I'm working on building tools for doing reflection in different type theories, with the eventual goal of being able to formalize all of MIRI's work. 
-Sometimes this means object-level formalization work (as in the implementation of Botworld in HOL, and my formalizations of dependently typed syntax), and sometimes it means developing more general tools for automatic formalization.
-* Contact Info
-The best way to reach me is by [[mailto:jack@gallabytes.com][email]].
-You can also find me on [[https://github.com/GallagherCommaJack][Github]], and of course on this blog.
+
