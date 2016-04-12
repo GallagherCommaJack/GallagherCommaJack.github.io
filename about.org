@@ -1,9 +1,21 @@
-* What is this blog?
-I started this blog a couple years ago. Some friends had asked me to start writing about various different vaguely-lifehack-ish-things I'd been doing, so I made a thing where I could.
-Then I started doing some more math-heavy posts as part of my English class (long story). 
-People liked those better, so that became the main content. 
-Then I stopped blogging for a while. 
-Now I'm maybe back.
-* Where else to find me
-- [[mailto:jack@gallabytes.com][Email]]
-- [[https://github.com/GallagherCommaJack][Github]]
+* Who am I?
+Jack Gallagher - mathematician, type theorist, and programmer - not always in that order.
+You can find more (if somewhat outdated) details in [[http://gallabytes.com/2015/09/types-in-high-school-reflection.html][this post]].
+* Projects
+** Things I wrote (mostly) on my own
+- [[https://github.com/GallagherCommaJack/types-in-types][Some metatheory of Martin-Löf dependent type theory in Coq]] (WIP)
+- [[https://github.com/GallagherCommaJack/tt-provability][Assorted formalizations of dependently typed syntax in Agda]]
+- [[https://github.com/GallagherCommaJack/haskell-tt][A typechecker for MLTT in Haskell]] (WIP)
+- [[https://github.com/GallagherCommaJack/software-foundations][Solutions to Software Foundations]]
+- [[https://github.com/GallagherCommaJack/Haskell-JSON-Patch][JSON patch in Haskell]]
+** Other projects I've contributed to
+- [[https://github.com/machine-intelligence/Botworld.HOL][Botworld in HOL]]
+- [[https://github.com/JasonGross/lob-paper][A paper on dependently typed Löb's Theorem]]
+- [[https://github.com/HOL-Theorem-Prover/HOL/commit/3d4f44c9c46ed67a003c69a7957bf570b24d3a07][The HOL Theorem Prover]]
+- [[https://github.com/GallagherCommaJack/lean/tree/quote][The Lean Theorem Prover]] (WIP, contributions not yet added to main repo)
+* Where am I / where have I worked?
+I'm currently a research contractor at the [[https://intelligence.org/][Machine Intelligence Research Institute]], where I'm working on building tools for doing reflection in different type theories, with the eventual goal of being able to formalize all of MIRI's work. 
+Sometimes this means object-level formalization work (as in the implementation of Botworld in HOL, and my formalizations of dependently typed syntax), and sometimes it means developing more general tools for automatic formalization.
+* Contact Info
+The best way to reach me is by [[mailto:jack@gallabytes.com][email]].
+You can also find me on [[https://github.com/GallagherCommaJack][Github]], and of course on this blog.
