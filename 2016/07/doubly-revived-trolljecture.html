@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gallabytes - Counterfactuals, trolljectures, and a proposal for logical causality</title>
+        <link rel="stylesheet" type="text/css" href="../../css/default.css" />
+        <link rel="icon" type="image/ico" href="../../favicon.ico">
+        <script type="text/javascript" src="path-to-MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../../">Gallabytes</a>
+            </div>
+            <div id="navigation">
+                <a href="../../">Home</a>
+                <a href="../../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <a href="../../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Counterfactuals, trolljectures, and a proposal for logical causality</h1>
+
+            <div class="info">
+    Posted on July  7, 2016
+    
+</div>
+
+<h1 id="background">Background</h1>
+<p>While discussing logical counterfactuals at MSFP, I came up with an idea that Scott pointed out was basically a more formal statement of his <a href="https://agentfoundations.org/item?id=259">trolljecture</a>. This was somewhat distressing, especially because the trolljecture seemed to be basically true! After getting Patrick to explain the counterexamples to me, I abandoned the idea for a bit and began searching for other approaches.</p>
+<p>The essential idea behind all the trolljecture counterexamples, at least as I understand them, was that any system of logical counterfactuals based on proving would allow unintended backward reasoning to force the counterfactual to take a stance on seemingly unrelated statements. For example, in <a href="https://agentfoundations.org/item?id=369">Sam’s original counterexample</a>, we can reason backwards from the fact that <span class="math inline"><em>A</em>() = 2</span> that its proof search must have terminated and thereby derive the inconsistency of PA.</p>
+<p>Patrick later outlined <a href="https://agentfoundations.org/item?id=444">a revival of the trolljecture</a> that also assumes the consistency of PA, and seemed to do the right thing on Sam’s counterexample. This revision was, however, still vulnerable to a <a href="https://agentfoundations.org/item?id=496">revised counterexample</a> that built <span class="math inline"><em>U</em>()</span> using a statement <span class="math inline"><em>X</em></span> that had neither a short proof nor a short disproof. The revised trolljecture ended up still taking a stance on the truth of <span class="math inline"><em>X</em></span> through essentially the same argument as before, unimpeded by the assumption of consistency.</p>
+<p>In this post I propose a formulation of logical counterfactuals that I haven’t managed to shoot down yet. I expect the solution to break, but I haven’t been able to figure out how. I’ll edit this post to include a link to a counterexample once one has been found.</p>
+<p>Before explaining my proposal, I think it would be helpful to look at how Pearlian causality handles some tricky problems.</p>
+<h1 id="a-causal-detour">A causal detour</h1>
+<p>You can imagine a situation that feels awfully similar to the trolljecture counterexamples in causal counterfactuals. Suppose I have an agent <span class="math inline"><em>A</em></span> choosing whether to open two boxes. Box 1 contains 5 utility as well as explosives which were rigged to detonate upon opening the box, destroying both boxes. Box 2 contains 5 utility and no explosives. Suppose <span class="math inline"><em>A</em></span> is risk averse, and will open both boxes if it observes the explosives being disarmed, and will otherwise open only box 2. Unbeknownst to <span class="math inline"><em>A</em></span>, you had previously disarmed the explosives in box 1. Since <span class="math inline"><em>A</em></span> never sees the explosives being disarmed, <span class="math inline"><em>A</em></span> only opens box 2. Knowing that the explosives had been disarmed, you can reason that, if <span class="math inline"><em>A</em></span> had opened box 1 it would have walked away with 10 utility instead of 5.</p>
+<p>In this case, the problem is solvable because empirical causality forms a DAG, where causal influence can only extend forward and never backward. The problem in logical counterfactuals is the backward-leaking influence - hypothesizing that <span class="math inline"><em>A</em></span> opened the box forces you to conclude that it observed you disarming it. This suggests that if we could formulate a proper notion of a DAG for logical causality then maybe we’d be able to do proper logical counterfactuals.</p>
+<p>I had been thinking on this problem for a little while when I noticed that I was confused about how circular causality could work in Pearl’s framework. For an example of circular causality, imagine we have two identical robots, each equipped with a light sensor and a laser pointed at the other robot’s sensor. Suppose each robot is programmed to fire its laser when it detects light in its sensor. A naive encoding of the relationship between these two events would be a cycle in the graph, with an edge pointing from laser<sub>1</sub> to laser<sub>2</sub> and laser<sub>2</sub> to laser<sub>1</sub>. This seems like a perfectly valid causal structure, but it’s not a DAG!</p>
+<p>Pearlian causality gets around this by rephrasing the event from “laser<sub>1</sub> firing” into “laser<sub>1</sub> firing at time <span class="math inline"><em>t</em></span>” with an arrow from “laser<sub>2</sub> firing at time <span class="math inline"><em>t</em> − 1</span>” and to “laser<sub>2</sub> firing at time <span class="math inline"><em>t</em> + 1</span>”. Cycles are then replaced with criss-crossing chains, laddering off into the future.</p>
+<h1 id="the-proposal">The proposal</h1>
+<p>In order to break the cycles, we want some notion of logical time from which influence can only propagate forward. Proof length seems, at least to me, to be the most (only?) natural way to pull something like that off. A proof of length <span class="math inline"><em>k</em></span> can be thought of as a logical observation at time <span class="math inline"><em>k</em></span>.</p>
+<p>When counterfacting on a statement φ when we’ve already observed (proven) ¬φ (or on ¬φ when we’ve already observed φ), you go back to when you first observed ¬φ and replace it with φ. If you haven’t yet observed φ or ¬φ, you may simply assume φ.</p>
+<p>From there you derive forward as you otherwise would have, but censoring any contradictions (this forces the consistency of the counterfactual world even while all the prerequisites to its negation are true).</p>
+<p>This breaks cycles in essentially the same way causal counterfactuals do - by doing the counterfactual surgery at a particular time step.</p>
+<h1 id="behavior-on-previous-counterexamples">Behavior on previous counterexamples</h1>
+<p>In general, this proposal seems to do the right thing once it already knows the outcome.</p>
+<p>On <a href="https://agentfoundations.org/item?id=369">Sam’s original counterexample</a>, if you’ve already observed that <span class="math inline"><em>A</em>() = 1</span>, and thus the consistency of PA, then you can correctly reason that if counterfactually <span class="math inline"><em>A</em>() = 2</span> then <span class="math inline"><em>U</em>() = 10</span>.</p>
+<p>On <a href="https://agentfoundations.org/item?id=496">the counterexample to Patrick’s reformulation</a>, again if you’ve already observed that <span class="math inline"><em>A</em>() = 1</span> then you can evaluate the counterfactual where <span class="math inline"><em>A</em>() = 2</span> without proving that <span class="math inline"><em>X</em></span> must have a short proof.</p>
+<p>If you haven’t yet observed <span class="math inline"><em>A</em>() = 1</span>, then this notion of counterfactuals still makes statements about how <span class="math inline"><em>A</em>() = 2</span> ends up happening. I think this is much more reasonable - you’re not forced by the framework to do the backward reasoning if and only if you already know what happened.</p>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
