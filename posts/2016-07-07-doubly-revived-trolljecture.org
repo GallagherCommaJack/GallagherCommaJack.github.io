@@ -1,0 +1,101 @@
+---
+title: Counterfactuals, trolljectures, and a proposal for logical causality
+---
+
+
+* Background
+While discussing logical counterfactuals at MSFP, I came up with an idea that Scott pointed out was basically a more formal statement of his [[https://agentfoundations.org/item?id=259][trolljecture]].
+This was somewhat distressing, especially because the trolljecture seemed to be basically true!
+After getting Patrick to explain the counterexamples to me, I abandoned the idea for a bit and began searching for other approaches.
+
+The essential idea behind all the trolljecture counterexamples, at least as I understand them, was that any system of logical counterfactuals based on proving would allow unintended backward reasoning to force the counterfactual to take a stance on seemingly unrelated statements.
+For example, in [[https://agentfoundations.org/item?id=369][Sam's original counterexample]], we can reason backwards from the fact that $A() = 2$ that its proof search must have terminated and thereby derive the inconsistency of PA.
+
+Patrick later outlined [[https://agentfoundations.org/item?id=444][a revival of the trolljecture]] that also assumes the consistency of PA, and seemed to do the right thing on Sam's counterexample.
+This revision was, however, still vulnerable to a [[https://agentfoundations.org/item?id=496][revised counterexample]] that built $U()$ using a statement $X$ that had neither a short proof nor a short disproof.
+The revised trolljecture ended up still taking a stance on the truth of $X$ through essentially the same argument as before, unimpeded by the assumption of consistency.
+
+# In this post I aim to give some of the mental handles I use for thinking about logical counterfactuals and propose a solution.
+In this post I propose a formulation of logical counterfactuals that I haven't managed to shoot down yet.
+I expect the solution to break, but I haven't been able to figure out how.
+I'll edit this post to include a link to a counterexample once one has been found.
+
+Before explaining my proposal, I think it would be helpful to look at how Pearlian causality handles some tricky problems.
+
+# * An adversarial intuition
+# When thinking about a logical counterfactual, I like to imagine I'm being simulated and, whenever I would make an observation, the simulators intervene to make me miss it.
+# For example, to counterfact on $\pi = 3$, I imagine I've been handed a proof, and the simulators intervene any time I might observe something to the contrary.
+# In the counterfactual world where $\pi = 3$, I will reliably observe that circles with radius $1$ have area $3$.
+# Whenever I look for ways to calculate $\pi$, they'll eventually sum to $3$.
+# This intuition was heavily inspired by Eliezer's [[http://lesswrong.com/lw/jr/how_to_convince_me_that_2_2_3/][How to Convince Me That 2 + 2 = 3]] and [[http://www.scp-wiki.net/scp-033][scp-033]].
+
+# One of the biggest problems with this intuition pump is that it doesn't rigorously pin down what sorts of observations would count as contrary.
+# For example, maybe I'm made to believe that the area of a circle is $3r^2$, but $e^{i \times 3.14\dots} = -1$, and that these statements are just completely unrelated facts about the world.
+# Or maybe something even stranger.
+
+# When I tried to give a formal accounting of logical counterfactuals based on this idea, it ended up depending very heavily on precisely which form of the statement you were counterfacting on as well as the proof system you were in.
+# # For example, in Robinson arithmetic, counterfacting on $1 + 1 = 3$ gave all the normal natural numbers as distinct, except that whenever you evaluated $1 + 1$ you got to choose between $2$ and $3$ - you just couldn't use transitivity to show them equal to each other.
+# # On the other hand, counterfacting on $1 + 1 = 1$ left $0$ not equal to $1$, but eventually declared any particular $n > 1$ to be equal to $1$.
+
+# While this provided a way to force the consistency of counterfactual worlds (just censor all contradictions), it didn't actually provide any ideas on how to get around the problems with the trolljecture.
+# On the other hand, trying to mimic causal counterfactuals did lead to some progress.
+
+* A causal detour
+You can imagine a situation that feels awfully similar to the trolljecture counterexamples in causal counterfactuals.
+Suppose I have an agent $A$ choosing whether to open two boxes.
+Box 1 contains 5 utility as well as explosives which were rigged to detonate upon opening the box, destroying both boxes.
+Box 2 contains 5 utility and no explosives.
+Suppose $A$ is risk averse, and will open both boxes if it observes the explosives being disarmed, and will otherwise open only box 2.
+Unbeknownst to $A$, you had previously disarmed the explosives in box 1.
+Since $A$ never sees the explosives being disarmed, $A$ only opens box 2.
+Knowing that the explosives had been disarmed, you can reason that, if $A$ had opened box 1 it would have walked away with 10 utility instead of 5.
+
+In this case, the problem is solvable because empirical causality forms a DAG, where causal influence can only extend forward and never backward.
+The problem in logical counterfactuals is the backward-leaking influence - hypothesizing that $A$ opened the box forces you to conclude that it observed you disarming it.
+This suggests that if we could formulate a proper notion of a DAG for logical causality then maybe we'd be able to do proper logical counterfactuals.
+
+I had been thinking on this problem for a little while when I noticed that I was confused about how circular causality could work in Pearl's framework.
+For an example of circular causality, imagine we have two identical robots, each equipped with a light sensor and a laser pointed at the other robot's sensor.
+Suppose each robot is programmed to fire its laser when it detects light in its sensor.
+A naive encoding of the relationship between these two events would be a cycle in the graph, with an edge pointing from laser_1 to laser_2 and laser_2 to laser_1.
+This seems like a perfectly valid causal structure, but it's not a DAG!
+
+Pearlian causality gets around this by rephrasing the event from "laser_1 firing" into "laser_1 firing at time $t$" with an arrow from "laser_2 firing at time $t - 1$" and to "laser_2 firing at time $t + 1$".
+Cycles are then replaced with criss-crossing chains, laddering off into the future.
+
+* The proposal
+In order to break the cycles, we want some notion of logical time from which influence can only propagate forward.
+Proof length seems, at least to me, to be the most (only?) natural way to pull something like that off.
+A proof of length $k$ can be thought of as a logical observation at time $k$.
+
+When counterfacting on a statement φ when we've already observed (proven) ¬φ (or on ¬φ when we've already observed φ), you go back to when you first observed ¬φ and replace it with φ.
+If you haven't yet observed φ or ¬φ, you may simply assume φ.
+
+From there you derive forward as you otherwise would have, but censoring any contradictions (this forces the consistency of the counterfactual world even while all the prerequisites to its negation are true).
+
+This breaks cycles in essentially the same way causal counterfactuals do - by doing the counterfactual surgery at a particular time step.
+
+# * A more formal proposal
+
+* Behavior on previous counterexamples
+# ** Counterfactual indignation bot
+# Let ⊸ denote counterfactual implication at time 0.
+# Counterfactual Indignation Bot (CIB) can then be defined as:
+
+# #+BEGIN_SRC 
+# CIB(opp) := if (CIB(opp) = C ⊸ opp(CIB) = D) then D else C
+# #+END_SRC
+
+# When run on itself, CIB assumes CIB(CIB) = C and searches for proofs of CIB(CIB) = D, which it can never find because we're forcing consistency.
+# Since it never finds such a proof it ends up running its default action, which is to cooperate.
+# By basically the same argument, it ends up being exploited by fairbot.
+
+# ** Counterexamples to previous trolljectures
+In general, this proposal seems to do the right thing once it already knows the outcome.
+
+On [[https://agentfoundations.org/item?id=369][Sam's original counterexample]], if you've already observed that $A() = 1$, and thus the consistency of PA, then you can correctly reason that if counterfactually $A() = 2$ then $U() = 10$.
+
+On [[https://agentfoundations.org/item?id=496][the counterexample to Patrick's reformulation]], again if you've already observed that $A() = 1$ then you can evaluate the counterfactual where $A() = 2$ without proving that $X$ must have a short proof.
+
+If you haven't yet observed $A() = 1$, then this notion of counterfactuals still makes statements about how $A() = 2$ ends up happening.
+I think this is much more reasonable - you're not forced by the framework to do the backward reasoning if and only if you already know what happened.
