@@ -1,0 +1,16 @@
+---
+title: Asymptotic Decision Theory
+---
+
+Lately I've been working on writing up some decision theory stuff I did with some of the other MIRI folk.
+The line of research was kickstarted by Jessica Taylor, and I spent a lot of time with Sam Eisenstat and Tsvi Benson-Tilsen working on it over the following month.
+
+This writeup is currently incomplete! You can find the unfinished version [[../../files/adt.pdf][here]].
+I'll be updating it soon, at which point I'll update this post and replace the file, but I figured I should push some of it since writing was already starting to drag on too long.
+TODOs:
+- Clean up + fill in details of optimality proof for `sadt`
+- Write up the algorithm for learning systems of counterfactuals and its corresponding proof of optimality
+- Write open problems section
+- Figure out what else belongs on this list
+
+
