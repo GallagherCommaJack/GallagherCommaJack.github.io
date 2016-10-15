@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gallabytes - 2016-10-07-asymptotic-decision-theory</title>
+        <link rel="stylesheet" type="text/css" href="../../css/default.css" />
+        <link rel="icon" type="image/ico" href="../../favicon.ico">
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({ 
+            TeX: { equationNumbers: {autoNumber: "AMS"}}
+          });
+        </script>
+
+        <script type="text/javascript" src="path-to-MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../../">Gallabytes</a>
+            </div>
+            <div id="navigation">
+                <a href="../../">Home</a>
+                <a href="../../about.html">About</a>
+                <!-- <a href="/contact.html">Contact</a> -->
+                <a href="../../archive.html">Archive</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>2016-10-07-asymptotic-decision-theory</h1>
+
+            <div class="info">
+    Posted on October  7, 2016
+    
+</div>
+
+<h1 id="sec:orgheadline1">Notation blurb</h1>
+<p>Except where I state otherwise, I’ll be using the notation from <a href="https://github.com/tsvibt/decision-theory-notation/blob/master/main.pdf">Tsvi’s post</a>.</p>
+<h1 id="sec:orgheadline5">Decision Problems</h1>
+<p>In asymptotic decision theory, we will chiefly concern ourselves with performance on problems of a very particular mathematical form. Specifically, we would like to define a limit-computable decision procedure <span class="math inline"><em>D</em></span> such that for all agents <span class="math inline"><em>A</em></span>, <span class="math inline"><em>D</em></span> doesn’t do predictably worse than <span class="math inline"><em>A</em></span> on any problem forever. To make that statement precise, we will have to give a few definitions.</p>
+<h2 id="sec:orgheadline2">Some definitions</h2>
+<p>In analysis, <span class="math inline">ℓ<sup>∞</sup>(<em>V</em>)</span> is generally used to denote bounded sequences over a norm space <span class="math inline"><em>V</em></span> under the <span class="math inline">sup</span> norm. In this post, we will write <span class="math inline">ℓ<sub><em>t</em></sub><sup>∞</sup>(<em>V</em><sub><em>t</em></sub>)</span> to denote bounded sequences over a sequence of norm spaces <span class="math inline"><em>V</em><sub><em>t</em></sub></span>, with the obvious translation of the <span class="math inline">sup</span> norm. We will also write <span class="math inline"><em>L</em><sub><em>t</em></sub><sup>1</sup>(<em>A</em>)</span> to refer to the <span class="math inline"><em>L</em><sup><em>p</em></sup></span> space <span class="math inline"><em>L</em><sup>1</sup>(<em>P</em><sub><em>t</em></sub>, <em>A</em>)</span>.</p>
+<p>We will define the type of agents to be <br /><span class="math display">Agent := Expr(ℓ<sub><em>t</em></sub><sup>∞</sup>(<em>L</em><sub><em>t</em></sub><sup>1</sup>(2)))</span><br /> where <span class="math inline"><em>P</em><sub><em>t</em></sub></span> is defined to be the probabilities of a universal inductor at time <span class="math inline"><em>t</em></span>. We will write agents as <span class="math inline">$\overline{A}$</span>, and their time-<span class="math inline"><em>t</em></span> behavior as <span class="math inline"><em>A</em><sub><em>t</em></sub></span>. You can think of an <span class="math inline">Agent</span> as a sequence of decisions that can look at probabilities from a logical inductor and be pseudorandom.</p>
+<p>In this post we will consider decision problems given by an embedding function with the following type: <br /><span class="math display">Embedder := Expr((<em>t</em> : ℕ<sup>+</sup>)→(<em>L</em><sub><em>t</em></sub><sup>1</sup>(2)→<em>L</em><sub><em>t</em></sub><sup>1</sup>(ℝ)))</span><br /> with the added condition that any <span class="math inline">$\overline{F} : {\textrm{Embedder}}$</span> is bounded, or more precisely that <br /><span class="math display">sup<sub><em>t</em> : ℕ<sup>+</sup></sub>sup<sub><em>v</em> : <em>L</em><sup>1</sup>(<em>P</em><sub><em>t</em></sub>, 2)</sub>sup<sub><em>w</em> : 2<sup><em>ω</em></sup></sub>|<em>F</em><sub><em>n</em></sub>(<em>v</em>, <em>w</em>)| &lt; ∞</span><br /> Note that each <span class="math inline">$\overline{F}$</span> induces a continuous map <br /><span class="math display">(<em>v</em><sub><em>t</em></sub> ↦ <em>F</em><sub><em>t</em></sub>(<em>v</em><sub><em>t</em></sub>)) : ℓ<sub><em>t</em></sub><sup>∞</sup>(<em>L</em><sub><em>t</em></sub><sup>1</sup>(2)) → ℓ<sub><em>t</em></sub><sup>∞</sup>(<em>L</em><sub><em>t</em></sub><sup>1</sup>(ℝ))</span><br /> which we will write as <span class="math inline"><em>F</em></span>.</p>
+<h2 id="sec:orgheadline3">Fairness</h2>
+<p>We would prefer to restrict our thinking to “fair” problems, where by fair I mean that the problem doesn’t punish you arbitrarily for details of your code that don’t affect your action. In this case, we can state our desired property more formally as follows:</p>
+<p>An embedding function <span class="math inline">$\overline{F}$</span> is called <em>fair</em> iff for all agents <span class="math inline">$\overline{A}$</span> and <span class="math inline">$\overline{B}$</span>, if we can’t predict a difference in their actions, then we won’t be able to predict a difference in their utilities. More formally, we would like <br /><span class="math display">lim<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>A</em><sub><em>t</em></sub> − <em>B</em><sub><em>t</em></sub>|] = 0</span><br /> to imply <br /><span class="math display">lim<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>F</em><sub><em>t</em></sub>(<em>A</em><sub><em>t</em></sub>)−<em>F</em><sub><em>t</em></sub>(<em>B</em><sub><em>t</em></sub>)|]=0</span><br /></p>
+<p>All embedding functions are fair</p>
+<p>Let <span class="math inline">$\overline{A}, \overline{B} : {\textrm{Agent}}$</span> and <span class="math inline">$\overline{F} : {\textrm{Embedder}}$</span> such that <br /><span class="math display">lim<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>A</em><sub><em>t</em></sub> − <em>B</em><sub><em>t</em></sub>|] = 0</span><br /> By [eq:hyp], for any <span class="math inline"><em>ϵ</em> &gt; 0</span> there must exist some <span class="math inline"><em>n</em><sub><em>ϵ</em></sub> : ℕ</span> such that for all <span class="math inline"><em>m</em> &gt; <em>n</em></span>, we have <br /><span class="math display"><em>E</em><sub><em>m</em></sub>[|<em>A</em><sub><em>m</em></sub> − <em>B</em><sub><em>m</em></sub>|] &lt; <em>ϵ</em></span><br /> Then we can define <br /><span class="math display">$$A^\epsilon_t :=
+  \begin{cases}
+    A_t &amp; \text{for } t &gt; n_\epsilon \\
+    0 &amp; \text{otherwise}
+  \end{cases}$$</span><br /> with <span class="math inline"><em>B</em><sub><em>t</em></sub><sup><em>ϵ</em></sup></span> defined analagously, such that <br /><span class="math display">∥<em>A</em><sup><em>ϵ</em></sup> − <em>B</em><sup><em>ϵ</em></sup>∥ = sup<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>A</em><sub><em>t</em></sub><sup><em>ϵ</em></sup> − <em>B</em><sub><em>t</em></sub><sup><em>ϵ</em></sup>|] &lt; <em>ϵ</em></span><br /> Take <span class="math inline"><em>ϵ</em> &gt; 0</span>. By the continuity of <span class="math inline"><em>F</em></span>, there must be some <span class="math inline"><em>δ</em> &gt; 0</span> such that, for any <span class="math inline">$\overline{C}, \overline{D} : {\textrm{Agent}}$</span>, <br /><span class="math display">$$\label{eq:cont}
+  {\lVert \overline{C} - \overline{D} \rVert} &lt; \delta
+  \to
+  {\lVert F(\overline{C}) - F(\overline{D}) \rVert} &lt; \epsilon$$</span><br /> Taking <span class="math inline">$\overline{C} = A^\delta$</span> and <span class="math inline">$\overline{D} = B^\delta$</span>, by [eq:Ha’] and [eq:cont], we have <br /><span class="math display">∥<em>F</em>(<em>A</em><sup><em>δ</em></sup>)−<em>F</em>(<em>B</em><sup><em>δ</em></sup>)∥ &lt; <em>ϵ</em></span><br /> which implies <br /><span class="math display">lim<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>F</em><sub><em>t</em></sub>(<em>A</em><sub><em>t</em></sub>)−<em>F</em><sub><em>t</em></sub>(<em>B</em><sub><em>t</em></sub>)|]=lim<sub><em>t</em> → ∞</sub><em>E</em><sub><em>t</em></sub>[|<em>F</em><sub><em>t</em></sub>(<em>A</em><sub><em>t</em></sub><sup><em>δ</em></sup>)−<em>F</em><sub><em>t</em></sub>(<em>B</em><sub><em>t</em></sub><sup><em>δ</em></sup>)|]&lt;<em>ϵ</em></span><br /> Since <span class="math inline"><em>ϵ</em></span> was arbitary, this completes the proof.</p>
+<h2 id="sec:orgheadline4">Some example problems</h2>
+<p>To get a better feel for how to define decision problems in this environment, we’ll go through a couple of examples. 5 and 10 is a fairly simple problem to define, so we’ll start there. <br /><span class="math display">510<sub><em>t</em></sub>(<em>A</em>):=5 + 5<em>A</em></span><br /> Then if <span class="math inline">eval<em>A</em><sub><em>t</em></sub> = 0</span>, <span class="math inline">510<sub><em>t</em></sub>(<em>A</em><sub><em>t</em></sub>)=5</span> and if <span class="math inline">eval<em>A</em><sub><em>t</em></sub> = 1</span> then <span class="math inline">510<sub><em>t</em></sub>(<em>A</em><sub><em>t</em></sub>)=10</span>.</p>
+<p>We can also define prisoner’s dilemma against a sequence of opponents <span class="math inline"><em>O</em><sub><em>t</em></sub> : Expr(<em>L</em><sub><em>t</em></sub><sup>1</sup>(2)→<em>L</em><sub><em>t</em></sub><sup>1</sup>(2))</span> <br /><span class="math display"><em>P</em><em>D</em><sub><em>t</em></sub><sup><em>O</em></sup>(<em>A</em>):=5<em>A</em> − 10<em>O</em><sub><em>t</em></sub>(<em>A</em>)</span><br /> And we can define <br /><span class="math display">NicerBot<sub><em>t</em></sub><sup><em>ϵ</em></sup>(<em>A</em>):=flip(<em>E</em><sub><em>t</em></sub>[<em>A</em>]+<em>ϵ</em>)</span><br /></p>
+<p>Defining agent simulates predictor is similarly easy. <br /><span class="math display">asp<sub><em>t</em></sub>(<em>A</em>):=10<em>E</em><sub><em>t</em></sub>[<em>A</em>]−<em>A</em></span><br /> That this is an adequate formalization of agent simulates predictor might not be immediately obvious, but it turns out to test for the same aspects of a decision theory.</p>
+<p>We can also define coordination problems. Let <span class="math inline"><em>O</em><sub><em>t</em></sub> : Expr(<em>L</em><sub><em>t</em></sub><sup>1</sup>(2)→<em>L</em><sub><em>t</em></sub><sup>1</sup>(2))</span>. Then <br /><span class="math display">CProb<sub><em>t</em></sub><sup><em>O</em></sup>(<em>A</em>):=|<em>A</em> − <em>O</em><sub><em>t</em></sub>(<em>A</em>)|</span><br /></p>
+<h1 id="sec:orgheadline6">Decision Theories</h1>
+
+        </div>
+        <div id="footer">
+            Site proudly generated by
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

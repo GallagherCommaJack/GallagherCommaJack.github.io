@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Gallabytes - Exporting Literate Haskell With HSColour and Pandoc</title>
+        <title>Gallabytes - Asymptotic Decision Theory</title>
         <link rel="stylesheet" type="text/css" href="../../css/default.css" />
         <link rel="icon" type="image/ico" href="../../favicon.ico">
         <script type="text/x-mathjax-config">
@@ -28,29 +28,21 @@
         </div>
 
         <div id="content">
-            <h1>Exporting Literate Haskell With HSColour and Pandoc</h1>
+            <h1>Asymptotic Decision Theory</h1>
 
             <div class="info">
-    Posted on March 14, 2014
+    Posted on October 14, 2016
     
 </div>
 
-<p>
-In <a href="http://blog.gallabytes.com/2014/03/isomorphism-equality-pq-and-other-ways.html">yesterday’s post</a> I said I would detail the workflow from literate Haskell + markdown to postable html, so here we go:
-</p>
-<p>
-Requirements: You need to have Haskell installed somehow. I generally recommend the <a href="http://www.haskell.org/platform/">Haskell Platform</a> installed through your OS’s package manager (<code>pacman</code>, <code>apt-get</code>, <code>homebrew</code>…). At a minimum, you need ghc and cabal-install Next, you need hscolour and pandoc installed. If you already have them, great! If not, run these commands:
-</p>
-<blockquote>
-<p>
-cabal install hscolour <br /> cabal install pandoc
-</p>
-</blockquote>
-Once you have those installed, it’s relatively simple - just run this script:
-<script src="https://gist.github.com/GallagherCommaJack/9531391.js"></script>
-<p>
-There you go! Now you’ve highlighted the code bits, and left the rest to be formatted as markdown!
-</p>
+<p>Lately I’ve been working on writing up some decision theory stuff I did with some of the other MIRI folk. The line of research was kickstarted by Jessica Taylor, and I spent a lot of time with Sam Eisenstat and Tsvi Benson-Tilsen working on it over the following month.</p>
+<p>This writeup is currently incomplete! You can find the unfinished version <a href="../../files/adt.pdf">here</a>. I’ll be updating it soon, at which point I’ll update this post and replace the file, but I figured I should push some of it since writing was already starting to drag on too long. TODOs:</p>
+<ul>
+<li>Clean up + fill in details of optimality proof for `sadt`</li>
+<li>Write up the algorithm for learning systems of counterfactuals and its corresponding proof of optimality</li>
+<li>Write open problems section</li>
+<li>Figure out what else belongs on this list</li>
+</ul>
 
         </div>
         <div id="footer">
