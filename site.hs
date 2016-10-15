@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Foldable
 import           Data.List
+import qualified Data.Set as S
+import           Text.Pandoc.Options
 import           Hakyll
 
 
@@ -50,6 +52,10 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
+
+    match "files/*" $ do
+      route idRoute
+      compile copyFileCompiler
 
     create ["archive.html"] $ do
         route idRoute
