@@ -4,13 +4,20 @@ title: Asymptotic Decision Theory
 
 Lately I've been working on writing up some decision theory stuff I did with some of the other MIRI folk.
 The line of research was kickstarted by Jessica Taylor, and I spent a lot of time with Sam Eisenstat and Tsvi Benson-Tilsen working on it over the following month.
+You can find the pdf [[../../files/adt.pdf][here]].
 
-This writeup is currently incomplete! You can find the unfinished version [[../../files/adt.pdf][here]].
-I'll be updating it soon, at which point I'll update this post and replace the file, but I figured I should push some of it since writing was already starting to drag on too long.
-TODOs:
-- Clean up + fill in details of optimality proof for `sadt`
-- Write up the algorithm for learning systems of counterfactuals and its corresponding proof of optimality
-- Write open problems section
-- Figure out what else belongs on this list
+UPDATE:
+I've decided to move the open questions section to here.
 
+There are still a lot of questions I'd like answered in the realm of asymptotic
+decision theory.
 
+While a lot of problems we've historically been interested in turn out to be
+convergent, there are still plenty of useful benchmarks which aren't.
+For example, the problem "predict this sequence of bits" is not convergent.
+How would we go about behaving optimally on non-convergent problems?
+Relatedly, is there a crisper characterization of convergence in the sense that
+continuity was a cripser characterization of fairness?
+
+I've also been looking into the behavior of ~sadt~ and ~ddt~ in game theory problems, which I'll be talking more about in my next post.
+Annoyingly enough, it turns out that most games against ~sadt~ and ~ddt~ are unfair problems!
