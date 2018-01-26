@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/theseriousadult
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://gallabytes.com
+  * I am theseriousadult (https://keybase.io/theseriousadult) on keybase.
+  * I have a public key ASBBkJegFu_s7UqQ-UN1m1Ji8NHDz6fZeJI6bW0L1lERlgo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120419097a016efeced4a90f943759b5262f0d1c3cfa7d978923a6d6d0bd65111960a",
+      "host": "keybase.io",
+      "kid": "0120419097a016efeced4a90f943759b5262f0d1c3cfa7d978923a6d6d0bd65111960a",
+      "uid": "beb457aaa4c511c9503f3da092eabd19",
+      "username": "theseriousadult"
+    },
+    "merkle_root": {
+      "ctime": 1516965098,
+      "hash": "ca01417cc108e365b055405dfbe4c7a56547135764fdbe346257301c07c82ac862797857c06983cc955f30d72163089a0a82338d41edf6efb794ca4e7fab0def",
+      "hash_meta": "b7f5a9369c1a5195f82b7866b13c4fc7d30d90fcc39bb566f36f7b8887ee90cc",
+      "seqno": 1985462
+    },
+    "service": {
+      "hostname": "gallabytes.com",
+      "protocol": "http:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.39"
+  },
+  "ctime": 1516965117,
+  "expire_in": 504576000,
+  "prev": "2f4b60db33b085a7378d540e8afa0612e9224843619ebb504ee97bfa34f287dd",
+  "seqno": 18,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgQZCXoBbv7O1KkPlDdZtSYvDRw8+n2XiSOm1tC9ZREZYKp3BheWxvYWTFA017ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNDE5MDk3YTAxNmVmZWNlZDRhOTBmOTQzNzU5YjUyNjJmMGQxYzNjZmE3ZDk3ODkyM2E2ZDZkMGJkNjUxMTE5NjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNDE5MDk3YTAxNmVmZWNlZDRhOTBmOTQzNzU5YjUyNjJmMGQxYzNjZmE3ZDk3ODkyM2E2ZDZkMGJkNjUxMTE5NjBhIiwidWlkIjoiYmViNDU3YWFhNGM1MTFjOTUwM2YzZGEwOTJlYWJkMTkiLCJ1c2VybmFtZSI6InRoZXNlcmlvdXNhZHVsdCJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUxNjk2NTA5OCwiaGFzaCI6ImNhMDE0MTdjYzEwOGUzNjViMDU1NDA1ZGZiZTRjN2E1NjU0NzEzNTc2NGZkYmUzNDYyNTczMDFjMDdjODJhYzg2Mjc5Nzg1N2MwNjk4M2NjOTU1ZjMwZDcyMTYzMDg5YTBhODIzMzhkNDFlZGY2ZWZiNzk0Y2E0ZTdmYWIwZGVmIiwiaGFzaF9tZXRhIjoiYjdmNWE5MzY5YzFhNTE5NWY4MmI3ODY2YjEzYzRmYzdkMzBkOTBmY2MzOWJiNTY2ZjM2ZjdiODg4N2VlOTBjYyIsInNlcW5vIjoxOTg1NDYyfSwic2VydmljZSI6eyJob3N0bmFtZSI6ImdhbGxhYnl0ZXMuY29tIiwicHJvdG9jb2wiOiJodHRwOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4zOSJ9LCJjdGltZSI6MTUxNjk2NTExNywiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiIyZjRiNjBkYjMzYjA4NWE3Mzc4ZDU0MGU4YWZhMDYxMmU5MjI0ODQzNjE5ZWJiNTA0ZWU5N2JmYTM0ZjI4N2RkIiwic2Vxbm8iOjE4LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQB9pCWxxLCpYZmyLoY2A8nCbhcoTElnQ97+bPw2VLzqjrtbxF9Lf6/7f7JYCIsr0/k6NYXtl3AQL1rgGb25zhgeoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCDgyomYpDyMwtzr92h1ssq3JAHplwIl4FAXL7mnPQr5cqN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/theseriousadult
+
+==================================================================
